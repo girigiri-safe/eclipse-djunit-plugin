@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/jp.co.dgic.eclipse.jdt.djunit_3.7.x.jar" id="jp.co.dgic.eclipse.jdt.djunit.feature" version="0.8.6">
+      <category name="djUnit plugin"/>
+   </feature>
+   <category-def name="djUnit plugin" label="djUnit plugin"/>
+</site>
