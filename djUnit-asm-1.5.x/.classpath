@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/asm-1.5.3.jar" sourcepath="D:/kataoka/java/asm/asm-1.5.3-bin.zip"/>
+	<classpathentry kind="lib" path="lib/asm-attrs-1.5.3.jar"/>
+	<classpathentry kind="lib" path="/jp.co.dgic.eclipse.jdt.djunit_3.7/bin"/>
+	<classpathentry kind="lib" path="/jp.co.dgic.eclipse.jdt.djunit_3.7/lib/jcoverage-djunit-1.0.5.jar" sourcepath="/jp.co.dgic.eclipse.jdt.djunit_3.7/jcoverage-1.0.5-patch.zip"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
