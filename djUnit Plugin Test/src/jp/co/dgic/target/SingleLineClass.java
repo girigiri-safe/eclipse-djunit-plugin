@@ -1,0 +1,1 @@
+package jp.co.dgic.target;public class SingleLineClass {public static void p() {System.out.println("system out...");}}

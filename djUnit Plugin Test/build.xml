@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="Windows-31J"?>
+
+<project name="TestDJUnit" basedir="." default="djunit">
+
+	<!--=============== PROPERTIES ===============-->
+
+	<property file="build.properties" />
+
+	<!--=============== CLASSPATH ===============-->
+<!--	
+	<path id="project.class.path">
+		<fileset dir="${project.dir}/lib">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="${project.dir}/webapps/WEB-INF/lib">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="${cosminexus.home}/CC/lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+-->
+	<path id="test.project.class.path">
+		<fileset dir="D:/eclipse2.1.3/plugins/jp.co.dgic.eclipse.jdt.djunit_2.1.x_0.5.2/lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<!--=============== CLEAN ===============-->
+	<target name="clean.jcoverage.report">
+		<delete dir="${jcoverage.work.classes}"/>
+		<mkdir dir="${jcoverage.work.classes}"/>
+		<delete dir="${jcoverage.work.src}"/>
+		<mkdir dir="${jcoverage.work.src}"/>
+		<delete>
+			<fileset dir="." includes="**/jcoverage.ser"/>
+		</delete>
+	</target>
+	
+	<!-- DJUNIT TASKDEF -->
+	<taskdef classpath="D:/eclipse2.1.3/plugins/jp.co.dgic.eclipse.jdt.djunit_2.1.x_0.5.2/djunit.jar" resource="djunittasks.properties" />
+
+	<!-- JCOVERAGE TASKDEF -->
+	<taskdef classpath="${jcoverage.dir}/jcoverage.jar" resource="tasks.properties" />
+
+	<target name="djunit">
+
+		<delete dir="${report.output.dir}/classes"/>
+
+		<delete>
+			<fileset dir="." includes="**/jcoverage.ser"/>
+		</delete>
+
+		<djunit-instrument todir="${report.output.dir}/classes" virtualmock="yes">
+			<classpath location="${jcoverage.dir}/jcoverage-main.jar"/>
+			<classpath location="djunit.jar"/>
+			<classpath refid="test.project.class.path" />
+			<fileset dir="${project.dir}/classes">
+				<include name="**/*.class" />
+				<exclude name="**/sql/**/*.class"/>
+				<exclude name="**/*Test.class"/>
+			</fileset>
+		</djunit-instrument>
+
+		<delete dir="${report.output.dir}/junit"/>
+		<mkdir dir="${report.output.dir}/junit"/>
+
+		<junit printsummary="yes" fork="yes" dir="${project.dir}">
+			<classpath location="${jcoverage.dir}/jcoverage-main.jar"/>
+			<classpath location="${report.output.dir}/classes"/>
+<!--
+			<classpath refid="project.class.path" />
+-->
+			<classpath refid="test.project.class.path" />
+
+			<classpath location="D:/eclipse2.1.3/plugins/jp.co.dgic.eclipse.jdt.djunit_2.1.x_0.5.2/djunit.jar"/>
+			<formatter type="xml"/>
+			<batchtest todir="${report.output.dir}/junit">
+				<fileset dir="${report.output.dir}/classes">
+					<include name="**/*Test.class"/>
+					<include name="**/server/**/*Test.class"/>
+				</fileset>
+			</batchtest>
+		</junit>
+
+		<junitreport>
+			<fileset dir="${report.output.dir}/junit">
+				<include name="TEST-*.xml"/>
+			</fileset>
+			<report format="frames" todir="${report.output.dir}/junit"/>
+		</junitreport>
+
+		<merge>
+			<classpath location="${jcoverage.dir}/jcoverage-main.jar"/>
+			<fileset dir="${project.dir}">
+				<include name="**/jcoverage.ser"/>
+			</fileset>
+		</merge>
+
+		<delete dir="${report.output.dir}/coverage"/>
+		<mkdir dir="${report.output.dir}/coverage"/>
+
+		<report srcdir="${project.dir}/src" destdir="${report.output.dir}/coverage" >
+			<classpath location="${jcoverage.dir}/jcoverage-main.jar"/>
+		</report>
+
+	</target>
+
+</project>
