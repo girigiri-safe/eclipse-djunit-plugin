@@ -31,7 +31,7 @@ public class AClass {
 		return 10;
 	}
 
-	private class InnerClass {
+	public class InnerClass {
 		private int a;
 		public int getA() {
 			return a;
