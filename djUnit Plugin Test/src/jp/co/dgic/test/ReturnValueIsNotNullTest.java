@@ -1,5 +1,6 @@
 package jp.co.dgic.test;
 
+import jp.co.dgic.target.AClass;
 import jp.co.dgic.testing.common.DJUnitRuntimeException;
 import jp.co.dgic.testing.framework.DJUnitTestCase;
 
@@ -19,27 +20,27 @@ public class ReturnValueIsNotNullTest extends DJUnitTestCase {
 
 	public void testAddReturnValue() throws Exception {
 		try {
-			addReturnValue("class", "method", null);
+			addReturnValue(AClass.class, "getName", null);
 			fail("この行は実行されないはず");
 		} catch (DJUnitRuntimeException dre) {
-			assertEquals((Object)"Return value must be NOT null.[class.method]", (Object)dre.getMessage());
+			assertEquals((Object)"Return value must be NOT null.[AClass.getName]", (Object)dre.getMessage());
 		}
 	}
 
 	public void testSetReturnValueAt() throws Exception {
 		try {
-			setReturnValueAt("class", "method", 0, null);
+			setReturnValueAt(AClass.class, "getName", 0, null);
 			fail("この行は実行されないはず");
 		} catch (DJUnitRuntimeException dre) {
-			assertEquals("Return value must be NOT null.[class.method]", dre.getMessage());
+			assertEquals("Return value must be NOT null.[AClass.getName]", dre.getMessage());
 		}
 	}
 	public void testSetReturnValueAtAllTimes() throws Exception {
 		try {
-			setReturnValueAtAllTimes("class", "method", null);
+			setReturnValueAtAllTimes(AClass.class, "getName", null);
 			fail("この行は実行されないはず");
 		} catch (DJUnitRuntimeException dre) {
-			assertEquals("Return value must be NOT null.[class.method]", dre.getMessage());
+			assertEquals("Return value must be NOT null.[AClass.getName]", dre.getMessage());
 		}
 	}
 }

@@ -1,6 +1,7 @@
 package jp.co.dgic.test;
 
 import jp.co.dgic.target.SubClassArgument;
+import jp.co.dgic.target.SuperClassArgument;
 import jp.co.dgic.testing.framework.DJUnitTestCase;
 
 public class SuperClassArgumentTest extends DJUnitTestCase {
@@ -28,14 +29,14 @@ public class SuperClassArgumentTest extends DJUnitTestCase {
 		
 		assertEquals("new name", sub.getName());
 		
-		String subArg = (String) getArgument("jp.co.dgic.target.SubClassArgument", "<init>", 0);
-		String superArg = (String) getArgument("jp.co.dgic.target.SuperClassArgument", "<init>", 0);
+		String subArg = (String) getArgument(SubClassArgument.class, "<init>", 0);
+		String superArg = (String) getArgument(SuperClassArgument.class, "<init>", 0);
 		
 		assertEquals("new name", subArg);
 		assertEquals("new name", superArg);
 		
-		int subCallCount = getCallCount("jp.co.dgic.target.SubClassArgument", "<init>");
-		int superCallCount = getCallCount("jp.co.dgic.target.SuperClassArgument", "<init>");
+		int subCallCount = getCallCount(SubClassArgument.class, "<init>");
+		int superCallCount = getCallCount(SuperClassArgument.class, "<init>");
 		
 		assertEquals(1, subCallCount);
 		assertEquals(1, superCallCount);

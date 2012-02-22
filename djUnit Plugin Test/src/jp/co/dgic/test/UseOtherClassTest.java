@@ -29,7 +29,7 @@ public class UseOtherClassTest extends DJUnitTestCase {
 		
 		UseOtherClass useOtherClass = new UseOtherClass();
 		
-		addReturnValue("jp.co.dgic.target.OtherClass", "<init>", new OtherClass("Test"));
+		addReturnValue(OtherClass.class, "<init>", new OtherClass("Test"));
 		
 		assertEquals("Test", useOtherClass.getOtherClassName());
 	}

@@ -10,8 +10,7 @@ import junit.framework.TestCase;
 
 public class ReturnValueProviderTest extends TestCase {
 
-	private class ReturnValueProviderForMethod
-		implements IReturnValueProvider {
+	private class ReturnValueProviderForMethod implements IReturnValueProvider {
 
 		public Object createReturnValue(Object[] args) throws Throwable {
 			String arg = (String) args[0];
@@ -30,11 +29,10 @@ public class ReturnValueProviderTest extends TestCase {
 		}
 	}
 
-	private class ReturnValueProviderForNewExpr
-		implements IReturnValueProvider {
+	private class ReturnValueProviderForNewExpr implements IReturnValueProvider {
 
 		public Object createReturnValue(Object[] args)
-			throws ClassCastException {
+				throws ClassCastException {
 			String arg = (String) args[0];
 			if ("a".equals(arg)) {
 				return new TestTarget() {
@@ -63,8 +61,8 @@ public class ReturnValueProviderTest extends TestCase {
 		}
 	}
 
-	private class ReturnValueProviderForNewString
-		implements IReturnValueProvider {
+	private class ReturnValueProviderForNewString implements
+			IReturnValueProvider {
 
 		public Object createReturnValue(Object[] args) {
 
@@ -108,18 +106,12 @@ public class ReturnValueProviderTest extends TestCase {
 
 	public void testMethodNormal002() throws Exception {
 
-		MockObjectManager.addReturnValue(
-			"jp.co.dgic.target.ReturnValueProviderTestTarget",
-			"getIntValue",
-			new Integer(1));
-		MockObjectManager.addReturnValue(
-			"jp.co.dgic.target.ReturnValueProviderTestTarget",
-			"getIntValue",
-			new Integer(-1));
-		MockObjectManager.addReturnValue(
-			"jp.co.dgic.target.ReturnValueProviderTestTarget",
-			"getIntValue",
-			new Integer(100));
+		MockObjectManager.addReturnValue(ReturnValueProviderTestTarget.class,
+				"getIntValue", new Integer(1));
+		MockObjectManager.addReturnValue(ReturnValueProviderTestTarget.class,
+				"getIntValue", new Integer(-1));
+		MockObjectManager.addReturnValue(ReturnValueProviderTestTarget.class,
+				"getIntValue", new Integer(100));
 
 		assertEquals(1, testClass.getIntValue(null));
 		assertEquals(-1, testClass.getIntValue(""));
@@ -128,13 +120,11 @@ public class ReturnValueProviderTest extends TestCase {
 
 	public void testMethodNormal003() throws Exception {
 
-		ReturnValueProviderForMethod valueProvider =
-			new ReturnValueProviderForMethod();
+		ReturnValueProviderForMethod valueProvider = new ReturnValueProviderForMethod();
 
 		MockObjectManager.setReturnValueAtAllTimes(
-			"jp.co.dgic.target.ReturnValueProviderTestTarget",
-			"getIntValue",
-			valueProvider);
+				ReturnValueProviderTestTarget.class, "getIntValue",
+				valueProvider);
 
 		assertEquals(1, testClass.getIntValue("a"));
 		assertEquals(100, testClass.getIntValue("b"));
@@ -159,11 +149,8 @@ public class ReturnValueProviderTest extends TestCase {
 
 	public void testNewExprNormal002() throws Exception {
 
-		assertEquals(
-			0,
-			MockObjectManager.getCallCount(
-				"jp.co.dgic.target.TestTarget",
-				"<init>"));
+		assertEquals(0,
+				MockObjectManager.getCallCount(TestTarget.class, "<init>"));
 
 		TestTarget t1 = new TestTarget() {
 			public int getField1() {
@@ -183,46 +170,29 @@ public class ReturnValueProviderTest extends TestCase {
 			}
 		};
 
-		MockObjectManager.addReturnValue(
-			"jp.co.dgic.target.TestTarget",
-			"<init>",
-			t1);
-		MockObjectManager.addReturnValue(
-			"jp.co.dgic.target.TestTarget",
-			"<init>",
-			t2);
-		MockObjectManager.addReturnValue(
-			"jp.co.dgic.target.TestTarget",
-			"<init>",
-			t3);
+		MockObjectManager.addReturnValue(TestTarget.class, "<init>", t1);
+		MockObjectManager.addReturnValue(TestTarget.class, "<init>", t2);
+		MockObjectManager.addReturnValue(TestTarget.class, "<init>", t3);
 
-		assertEquals(
-			3,
-			MockObjectManager.getCallCount(
-				"jp.co.dgic.target.TestTarget",
-				"<init>"));
+		assertEquals(3,
+				MockObjectManager.getCallCount(TestTarget.class, "<init>"));
 
 		assertEquals(10, testClass.getTestTarget(null).getField1());
 		assertEquals(100, testClass.getTestTarget("").getField1());
 		assertEquals(1000, testClass.getTestTarget("aaa").getField1());
 
-		assertEquals(
-			6,
-			MockObjectManager.getCallCount(
-				"jp.co.dgic.target.TestTarget",
-				"<init>"));
+		assertEquals(6,
+				MockObjectManager.getCallCount(TestTarget.class, "<init>"));
 
 	}
 
 	public void testNewExprNormal003() throws Exception {
 
-		ReturnValueProviderForNewExpr valueProvider =
-			new ReturnValueProviderForNewExpr();
+		ReturnValueProviderForNewExpr valueProvider = new ReturnValueProviderForNewExpr();
 
 		MockObjectManager.setReturnValueAtAllTimes(
-			"jp.co.dgic.target.ReturnValueProviderTestTarget",
-			"getTestTarget",
-			valueProvider);
+				ReturnValueProviderTestTarget.class, "getTestTarget",
+				valueProvider);
 
 		assertEquals(10, testClass.getTestTarget("a").getField1());
 		assertEquals(20, testClass.getTestTarget("b").getField1());
@@ -239,20 +209,17 @@ public class ReturnValueProviderTest extends TestCase {
 
 	public void testStringNormal002() throws Exception {
 
-		MockObjectManager.addReturnValue("java.lang.String", "<init>", "eee");
+		MockObjectManager.addReturnValue(String.class, "<init>", "eee");
 
 		assertEquals("eee", testClass.getString(null));
 	}
 
 	public void testStringNormal003() throws Exception {
 
-		ReturnValueProviderForNewString valueProvider =
-			new ReturnValueProviderForNewString();
+		ReturnValueProviderForNewString valueProvider = new ReturnValueProviderForNewString();
 
-		MockObjectManager.setReturnValueAtAllTimes(
-			"java.lang.String",
-			"<init>",
-			valueProvider);
+		MockObjectManager.setReturnValueAtAllTimes(String.class,
+				"<init>", valueProvider);
 
 		assertEquals("aaa", testClass.getString("a"));
 		assertEquals("bbb", testClass.getString("b"));
@@ -264,14 +231,11 @@ public class ReturnValueProviderTest extends TestCase {
 	}
 
 	public void testVoidMethodNormal001() throws Exception {
-		ReturnValueProviderForMethod valueProvider =
-			new ReturnValueProviderForMethod();
+		ReturnValueProviderForMethod valueProvider = new ReturnValueProviderForMethod();
 
-		MockObjectManager.addReturnValue(
-			"jp.co.dgic.target.ReturnValueProviderTestTarget",
-			"addString",
-			valueProvider);
-			
+		MockObjectManager.addReturnValue(ReturnValueProviderTestTarget.class,
+				"addString", valueProvider);
+
 		testClass.addString("name");
 	}
 

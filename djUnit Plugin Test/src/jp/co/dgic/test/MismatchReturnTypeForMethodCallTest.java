@@ -46,21 +46,21 @@ public class MismatchReturnTypeForMethodCallTest extends TestCase {
 
 	public void testNormal002() throws Exception {
 		
-		MockObjectManager.addReturnValue("java.lang.String", "substring", "zzz");
+		MockObjectManager.addReturnValue(String.class, "substring", "zzz");
 		
 		assertEquals("zzz", target.getString());
 	}
 
 	public void testNormal003() throws Exception {
 		
-		MockObjectManager.addReturnNull("java.lang.String", "substring");
+		MockObjectManager.addReturnNull(String.class, "substring");
 		
 		assertNull(target.getString());
 	}
 
 	public void testError001() throws Exception {
 		
-		MockObjectManager.addReturnValue("java.lang.String", "substring");
+		MockObjectManager.addReturnValue(String.class, "substring");
 		
 		try {
 			target.getString();
@@ -75,7 +75,7 @@ public class MismatchReturnTypeForMethodCallTest extends TestCase {
 
 	public void testError002() throws Exception {
 		
-		MockObjectManager.addReturnValue("java.lang.String", "substring", new HashMap());
+		MockObjectManager.addReturnValue(String.class, "substring", new HashMap());
 		
 		try {
 			target.getString();
@@ -90,7 +90,7 @@ public class MismatchReturnTypeForMethodCallTest extends TestCase {
 
 	public void testError003() throws Exception {
 		
-		MockObjectManager.addReturnValue("java.util.HashMap", "clear", new Object());
+		MockObjectManager.addReturnValue(HashMap.class, "clear", new Object());
 		
 		try {
 			target.callVoidMethod();
@@ -105,14 +105,14 @@ public class MismatchReturnTypeForMethodCallTest extends TestCase {
 
 	public void testNormal004() throws Exception {
 		
-		MockObjectManager.addReturnValue("java.util.HashMap", "clear", new NullReturnValue());
+		MockObjectManager.addReturnValue(HashMap.class, "clear", new NullReturnValue());
 		
 		target.callVoidMethod();
 	}
 
 	public void testNormal005() throws Exception {
 		
-		MockObjectManager.addReturnValue("java.util.HashMap", "clear", new IgnoreMethodValue());
+		MockObjectManager.addReturnValue(HashMap.class, "clear", new IgnoreMethodValue());
 		
 		target.callVoidMethod();
 	}

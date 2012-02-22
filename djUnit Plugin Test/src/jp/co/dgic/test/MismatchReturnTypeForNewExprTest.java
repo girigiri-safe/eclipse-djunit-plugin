@@ -42,21 +42,21 @@ public class MismatchReturnTypeForNewExprTest extends TestCase {
 	}
 
 	public void testMismatchReturnType001() throws Exception {
-		MockObjectManager.addReturnValue("java.util.HashMap", "<init>",
+		MockObjectManager.addReturnValue(HashMap.class, "<init>",
 				new HashMap());
 
 		target.getNewHashMap();
 	}
 
 	public void testMismatchReturnType002() throws Exception {
-		MockObjectManager.addReturnValue("java.util.HashMap", "<init>",
+		MockObjectManager.addReturnValue(HashMap.class, "<init>",
 				new NullReturnValue());
 
 		target.getNewHashMap();
 	}
 
 	public void testMismatchReturnType003() throws Exception {
-		MockObjectManager.addReturnValue("java.util.HashMap", "<init>",
+		MockObjectManager.addReturnValue(HashMap.class, "<init>",
 				new IgnoreMethodValue());
 
 		try {
@@ -72,7 +72,7 @@ public class MismatchReturnTypeForNewExprTest extends TestCase {
 	}
 
 	public void testMismatchReturnType004() throws Exception {
-		MockObjectManager.addReturnValue("java.util.HashMap", "<init>",
+		MockObjectManager.addReturnValue(HashMap.class, "<init>",
 				new Object());
 
 		try {
@@ -87,28 +87,28 @@ public class MismatchReturnTypeForNewExprTest extends TestCase {
 	}
 
 	public void testMismatchReturnType010() throws Exception {
-		MockObjectManager.addReturnValue("jp.co.dgic.target.TestTarget",
+		MockObjectManager.addReturnValue(TestTarget.class,
 				"<init>", new TestTarget());
 
 		target.getNewTestTarget();
 	}
 
 	public void testMismatchReturnType011() throws Exception {
-		MockObjectManager.addReturnValue("jp.co.dgic.target.TestTarget",
+		MockObjectManager.addReturnValue(TestTarget.class,
 				"<init>", new NullReturnValue());
 
 		target.getNewTestTarget();
 	}
 
 	public void testMismatchReturnType012() throws Exception {
-		MockObjectManager.addReturnValue("jp.co.dgic.target.TestTarget",
+		MockObjectManager.addReturnValue(TestTarget.class,
 				"<init>", new IgnoreMethodValue());
 
 		target.getNewTestTarget();
 	}
 
 	public void testMismatchReturnType013() throws Exception {
-		MockObjectManager.addReturnValue("jp.co.dgic.target.TestTarget",
+		MockObjectManager.addReturnValue(TestTarget.class,
 				"<init>", new Object());
 
 		try {

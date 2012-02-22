@@ -29,7 +29,7 @@ public class MisatchExceptionTypeTest extends TestCase {
 	}
 
 	public void testMismatchException001() throws Exception {
-		MockObjectManager.addReturnValue("jp.co.dgic.target.TestTarget", "throwIOAndSQLException", new AWTException(""));
+		MockObjectManager.addReturnValue(TestTarget.class, "throwIOAndSQLException", new AWTException(""));
 		
 		try {
 			target.throwIOAndSQLException();
@@ -43,7 +43,7 @@ public class MisatchExceptionTypeTest extends TestCase {
 	}
 
 	public void testMismatchException002() throws Exception {
-		MockObjectManager.addReturnValue("jp.co.dgic.target.TestTarget", "throwIOException", new SQLException(""));
+		MockObjectManager.addReturnValue(TestTarget.class, "throwIOException", new SQLException(""));
 		
 		try {
 			target.throwIOException();
@@ -57,7 +57,7 @@ public class MisatchExceptionTypeTest extends TestCase {
 	}
 
 	public void testMismatchException003() throws Exception {
-		MockObjectManager.addReturnValue("jp.co.dgic.target.TestTarget", "throwIOException", new Exception(""));
+		MockObjectManager.addReturnValue(TestTarget.class, "throwIOException", new Exception(""));
 		
 		try {
 			target.throwIOException();
@@ -71,7 +71,7 @@ public class MisatchExceptionTypeTest extends TestCase {
 	}
 
 	public void testMismatchException004() throws Exception {
-		MockObjectManager.addReturnValue("jp.co.dgic.target.TestTarget", "getField1", new Exception(""));
+		MockObjectManager.addReturnValue(TestTarget.class, "getField1", new Exception(""));
 		
 		try {
 			target.getField1();

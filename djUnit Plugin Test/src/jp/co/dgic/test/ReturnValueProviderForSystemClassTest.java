@@ -1,5 +1,6 @@
 package jp.co.dgic.test;
 import java.io.IOException;
+import java.util.HashMap;
 
 import jp.co.dgic.target.ReturnValueProviderForSystemClassTestTarget;
 import jp.co.dgic.testing.common.virtualmock.IReturnValueProvider;
@@ -65,9 +66,9 @@ public class ReturnValueProviderForSystemClassTest extends TestCase {
 
 	public void testNormal002() throws Exception {
 		
-		MockObjectManager.addReturnValue("java.util.HashMap", "get", "x");
-		MockObjectManager.addReturnValue("java.util.HashMap", "get", "y");
-		MockObjectManager.addReturnValue("java.util.HashMap", "get", "z");
+		MockObjectManager.addReturnValue(HashMap.class, "get", "x");
+		MockObjectManager.addReturnValue(HashMap.class, "get", "y");
+		MockObjectManager.addReturnValue(HashMap.class, "get", "z");
 		
 		assertEquals("x", map.get("a"));
 		assertEquals("y", map.get("b"));
@@ -76,7 +77,7 @@ public class ReturnValueProviderForSystemClassTest extends TestCase {
 
 	public void testNormal003() throws Exception {
 		
-		MockObjectManager.setReturnValueAtAllTimes("java.util.HashMap", "get", new ReturnValueProviderForMapGet());
+		MockObjectManager.setReturnValueAtAllTimes(HashMap.class, "get", new ReturnValueProviderForMapGet());
 		
 		assertEquals("aaa", map.get("a"));
 		assertEquals("bbb", map.get("b"));
@@ -95,7 +96,7 @@ public class ReturnValueProviderForSystemClassTest extends TestCase {
 
 	public void testNormal004() throws Exception {
 		
-		MockObjectManager.setReturnValueAtAllTimes("java.util.HashMap", "get", new ReturnValueProviderForMapGet());
+		MockObjectManager.setReturnValueAtAllTimes(HashMap.class, "get", new ReturnValueProviderForMapGet());
 		
 		assertEquals("aaa", map.get("a"));
 		assertEquals("bbb", map.get("b"));
@@ -114,7 +115,7 @@ public class ReturnValueProviderForSystemClassTest extends TestCase {
 
 	public void testNormal005() throws Exception {
 		
-		MockObjectManager.setReturnValueAtAllTimes("java.util.HashMap", "clear", new ReturnValueProviderForMapClear());
+		MockObjectManager.setReturnValueAtAllTimes(HashMap.class, "clear", new ReturnValueProviderForMapClear());
 		
 		map.clear();
 	}

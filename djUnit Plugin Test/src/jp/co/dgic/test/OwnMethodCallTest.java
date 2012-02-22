@@ -9,6 +9,7 @@
 package jp.co.dgic.test;
 
 import jp.co.dgic.target.ConcreteOwnMethodCall;
+import jp.co.dgic.target.OwnMethodCall;
 import jp.co.dgic.testing.common.virtualmock.MockObjectManager;
 import jp.co.dgic.testing.framework.DJUnitTestCase;
 
@@ -35,9 +36,9 @@ public class OwnMethodCallTest extends DJUnitTestCase {
 
 		testClass.mainMethod();
 
-		assertCalled("OwnMethodCall", "mainMethod");
-		assertNotCalled("ConcreteOwnMethodCall", "mainMethod");
-		assertCalled("ConcreteOwnMethodCall", "ownMethod");
-		assertCalled("OwnMethodCall", "ownMethod");
+		assertCalled(OwnMethodCall.class, "mainMethod");
+		assertNotCalled(ConcreteOwnMethodCall.class, "mainMethod");
+		assertCalled(ConcreteOwnMethodCall.class, "ownMethod");
+		assertCalled(OwnMethodCall.class, "ownMethod");
 	}
 }

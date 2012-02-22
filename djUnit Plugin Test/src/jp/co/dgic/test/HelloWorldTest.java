@@ -8,6 +8,8 @@
  */
 package jp.co.dgic.test;
 
+import java.io.PrintStream;
+
 import jp.co.dgic.target.HelloWorld;
 import jp.co.dgic.testing.common.virtualmock.MockObjectManager;
 import jp.co.dgic.testing.framework.DJUnitTestCase;
@@ -31,12 +33,12 @@ public class HelloWorldTest extends DJUnitTestCase {
 
 		HelloWorld.main();
 
-		assertCalled("java.io.PrintStream", "println");
+		assertCalled(PrintStream.class, "println");
 
-		int count = getCallCount("java.io.PrintStream", "println");
+		int count = getCallCount(PrintStream.class, "println");
 		assertEquals(1, count);
 
-		String firstArg = (String) getArgument("java.io.PrintStream", "println", 0);
+		String firstArg = (String) getArgument(PrintStream.class, "println", 0);
 		assertEquals("Hello World.", firstArg);
 	}
 
@@ -44,15 +46,15 @@ public class HelloWorldTest extends DJUnitTestCase {
 
 		HelloWorld.main2();
 
-		assertCalled("java.io.PrintStream", "println");
+		assertCalled(PrintStream.class, "println");
 
-		int count = getCallCount("java.io.PrintStream", "println");
+		int count = getCallCount(PrintStream.class, "println");
 		assertEquals(2, count);
 
-		String argOfFirstCall = (String) getArgument("java.io.PrintStream", "println", 0, 0);
+		String argOfFirstCall = (String) getArgument(PrintStream.class, "println", 0, 0);
 		assertEquals("Hello World.", argOfFirstCall);
 
-		String argOfSecondCall = (String) getArgument("java.io.PrintStream", "println", 1, 0);
+		String argOfSecondCall = (String) getArgument(PrintStream.class, "println", 1, 0);
 		assertEquals("‚±‚ñ‚É‚¿‚í World.", argOfSecondCall);
 	}
 

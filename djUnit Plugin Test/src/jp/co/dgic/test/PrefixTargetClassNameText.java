@@ -39,8 +39,8 @@ public class PrefixTargetClassNameText extends DJUnitTestCase {
 	 */
 	public void testNormal002()  throws Exception {
 		
-		addReturnValue("jp.co.dgic.target.TargetClassName", "getString", "NON");
-		addReturnValue("jp.co.dgic.target.PrefixTargetClassName", "getString", "PREFIX");
+		addReturnValue(TargetClassName.class, "getString", "NON");
+		addReturnValue(PrefixTargetClassName.class, "getString", "PREFIX");
 		
 		assertEquals("NON", target.getString());
 		assertEquals("PREFIX", prefixTarget.getString());
@@ -52,7 +52,7 @@ public class PrefixTargetClassNameText extends DJUnitTestCase {
 	 */
 	public void testNormal003()  throws Exception {
 		
-		addReturnValue("TargetClassName", "getString", "NON");
+		addReturnValue(TargetClassName.class, "getString", "NON");
 		
 		assertEquals("NON", target.getString());
 		assertEquals("Prefix target", prefixTarget.getString());
@@ -64,7 +64,7 @@ public class PrefixTargetClassNameText extends DJUnitTestCase {
 	 */
 	public void testNormal004_1()  throws Exception {
 		
-		addReturnValue("TargetClassName", "getString", "NON");
+		addReturnValue(TargetClassName.class, "getString", "NON");
 		
 		assertEquals("Prefix target", prefixTarget.getString());
 		assertEquals("NON", target.getString());
@@ -76,7 +76,7 @@ public class PrefixTargetClassNameText extends DJUnitTestCase {
 	 */
 	public void testNormal004_2()  throws Exception {
 		
-		setReturnValueAtAllTimes("TargetClassName", "getString", "NON");
+		setReturnValueAtAllTimes(TargetClassName.class, "getString", "NON");
 		
 		assertEquals("Prefix target", prefixTarget.getString());
 		assertEquals("NON", target.getString());
@@ -88,7 +88,7 @@ public class PrefixTargetClassNameText extends DJUnitTestCase {
 	 */
 	public void testNormal005()  throws Exception {
 		
-		addReturnValue("PrefixTargetClassName", "getString", "PREFIX");
+		addReturnValue(PrefixTargetClassName.class, "getString", "PREFIX");
 		
 		assertEquals("Target", target.getString());
 		assertEquals("PREFIX", prefixTarget.getString());
@@ -100,7 +100,7 @@ public class PrefixTargetClassNameText extends DJUnitTestCase {
 	 */
 	public void testNormal006()  throws Exception {
 		
-		addReturnValue("PrefixTargetClassName", "getString", "PREFIX");
+		addReturnValue(PrefixTargetClassName.class, "getString", "PREFIX");
 		
 		assertEquals("PREFIX", prefixTarget.getString());
 		assertEquals("Target", target.getString());
@@ -115,8 +115,8 @@ public class PrefixTargetClassNameText extends DJUnitTestCase {
 		target.getString();
 		prefixTarget.getString();
 		
-		assertCalled("jp.co.dgic.target.TargetClassName", "getString");
-		assertCalled("jp.co.dgic.target.PrefixTargetClassName", "getString");
+		assertCalled(TargetClassName.class, "getString");
+		assertCalled(PrefixTargetClassName.class, "getString");
 	}
 
 	/**
@@ -128,8 +128,8 @@ public class PrefixTargetClassNameText extends DJUnitTestCase {
 		target.getString();
 //		prefixTarget.getString();
 		
-		assertCalled("jp.co.dgic.target.TargetClassName", "getString");
-		assertNotCalled("jp.co.dgic.target.PrefixTargetClassName", "getString");
+		assertCalled(TargetClassName.class, "getString");
+		assertNotCalled(PrefixTargetClassName.class, "getString");
 	}
 
 	/**
@@ -141,8 +141,8 @@ public class PrefixTargetClassNameText extends DJUnitTestCase {
 //		target.getString();
 		prefixTarget.getString();
 		
-		assertNotCalled("jp.co.dgic.target.TargetClassName", "getString");
-		assertCalled("jp.co.dgic.target.PrefixTargetClassName", "getString");
+		assertNotCalled(TargetClassName.class, "getString");
+		assertCalled(PrefixTargetClassName.class, "getString");
 	}
 
 	/**
@@ -154,8 +154,8 @@ public class PrefixTargetClassNameText extends DJUnitTestCase {
 		target.getString();
 //		prefixTarget.getString();
 		
-		assertCalled("TargetClassName", "getString");
-		assertNotCalled("PrefixTargetClassName", "getString");
+		assertCalled(TargetClassName.class, "getString");
+		assertNotCalled(PrefixTargetClassName.class, "getString");
 	}
 
 	/**
@@ -167,8 +167,8 @@ public class PrefixTargetClassNameText extends DJUnitTestCase {
 //		target.getString();
 		prefixTarget.getString();
 		
-		assertNotCalled("TargetClassName", "getString");
-		assertCalled("PrefixTargetClassName", "getString");
+		assertNotCalled(TargetClassName.class, "getString");
+		assertCalled(PrefixTargetClassName.class, "getString");
 	}
 
 }

@@ -27,23 +27,23 @@ public class BTagClassTest extends DJUnitTestCase {
 		// トレース
 		System.out.println("************************************************");
 		System.out.println("* BTag#doStartTag()："
-						   + getCallCount(BTagClass.class.getName(), "doStartTag")
+						   + getCallCount(BTagClass.class, "doStartTag")
 						   + "回呼び出し済み");
 		System.out.println("* ATag#doStartTag()："
-						   + getCallCount(ATagClass.class.getName(), "doStartTag")
+						   + getCallCount(ATagClass.class, "doStartTag")
 						   + "回呼び出し済み");
 		System.out.println("* ValidatorTag#doStartTag()："
-						   + getCallCount(ValidatorTag.class.getName(), "doStartTag")
+						   + getCallCount(ValidatorTag.class, "doStartTag")
 						   + "回呼び出し済み");
 		System.out.println("************************************************");
 
 		// 検証
-		assertEquals(1, getCallCount(BTagClass.class.getName(), "doStartTag"));
-		assertEquals(0, getCallCount(ATagClass.class.getName(), "doStartTag"));
-		assertEquals(1, getCallCount(ValidatorTag.class.getName(), "doStartTag"));
+		assertEquals(1, getCallCount(BTagClass.class, "doStartTag"));
+		assertEquals(0, getCallCount(ATagClass.class, "doStartTag"));
+		assertEquals(1, getCallCount(ValidatorTag.class, "doStartTag"));
 
-		assertCalled(BTagClass.class.getName(), "doStartTag");
-		assertCalled(ValidatorTag.class.getName(), "doStartTag");
+		assertCalled(BTagClass.class, "doStartTag");
+		assertCalled(ValidatorTag.class, "doStartTag");
 
 	}
 
@@ -56,13 +56,13 @@ public class BTagClassTest extends DJUnitTestCase {
 		}
 
 		// 検証
-		assertEquals(1, getCallCount(BTagClass.class.getName(), "release"));
-		assertEquals(1, getCallCount(ATagClass.class.getName(), "release"));
-		assertEquals(1, getCallCount(ValidatorTag.class.getName(), "release"));
+		assertEquals(1, getCallCount(BTagClass.class, "release"));
+		assertEquals(1, getCallCount(ATagClass.class, "release"));
+		assertEquals(1, getCallCount(ValidatorTag.class, "release"));
 
-		assertCalled(BTagClass.class.getName(), "release");
-		assertCalled(ATagClass.class.getName(), "release");
-		assertCalled(ValidatorTag.class.getName(), "release");
+		assertCalled(BTagClass.class, "release");
+		assertCalled(ATagClass.class, "release");
+		assertCalled(ValidatorTag.class, "release");
 
 	}
 

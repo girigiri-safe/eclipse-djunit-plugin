@@ -45,8 +45,8 @@ public class OverloadMethodCallTest extends DJUnitTestCase {
 	public void testOverloadMethodNormal002() {
 		assertEquals(0, target.overloadMethod(0));
 
-		addReturnValue("OverloadMethodCall", "overloadMethod", new Integer(5));
-		addReturnValue("OverloadMethodCall", "overloadMethod", new Integer(12));
+		addReturnValue(OverloadMethodCall.class, "overloadMethod", new Integer(5));
+		addReturnValue(OverloadMethodCall.class, "overloadMethod", new Integer(12));
 		assertEquals(5, target.overloadMethod("0"));
 		assertEquals(12, target.overloadMethod(6));
 

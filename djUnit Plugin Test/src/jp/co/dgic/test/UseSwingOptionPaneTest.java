@@ -8,6 +8,10 @@
  */
 package jp.co.dgic.test;
 
+import java.io.PrintStream;
+
+import javax.swing.JOptionPane;
+
 import jp.co.dgic.target.UseSwingOptionPane;
 import jp.co.dgic.testing.common.virtualmock.MockObjectManager;
 import jp.co.dgic.testing.framework.DJUnitTestCase;
@@ -39,11 +43,11 @@ public class UseSwingOptionPaneTest extends DJUnitTestCase {
 
 	public void testNormal001() {
 
-		addReturnValue("javax.swing.JOptionPane", "showInputDialog", "inputMessage of testNormal001");
+		addReturnValue(JOptionPane.class, "showInputDialog", "inputMessage of testNormal001");
 
 		UseSwingOptionPane.main(null);
 
-		String arg = (String) getArgument("java.io.PrintStream", "println", 0);
+		String arg = (String) getArgument(PrintStream.class, "println", 0);
 		assertEquals("inputMessage of testNormal001", arg);
 	}
 

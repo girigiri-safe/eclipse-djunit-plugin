@@ -60,27 +60,27 @@ public class ConstructorTest extends TestCase {
 		targetOwner = new ConstructorTargetOwner();
 		
 		assertEquals(1, targetOwner.getTarget().getValue());
-		assertEquals(1, MockObjectManager.getCallCount("jp.co.dgic.target.ConstructorTestTarget", "<init>"));
+		assertEquals(1, MockObjectManager.getCallCount(ConstructorTestTarget.class, "<init>"));
 	}
 	
 	public void testNormal002() throws Exception {
-		MockObjectManager.addReturnValue("jp.co.dgic.target.ConstructorTestTarget", "<init>");
+		MockObjectManager.addReturnValue(ConstructorTestTarget.class, "<init>");
 		
 		targetOwner = new ConstructorTargetOwner();
 		
 		assertEquals(0, targetOwner.getTarget().getValue());
-		assertEquals(1, MockObjectManager.getCallCount("jp.co.dgic.target.ConstructorTestTarget", "<init>"));
+		assertEquals(1, MockObjectManager.getCallCount(ConstructorTestTarget.class, "<init>"));
 	}
 
 	public void testNormal003() throws Exception {
 		
 		ConstructorTestTarget mockTarget = new ConstructorTestTarget(100);
-		MockObjectManager.addReturnValue("jp.co.dgic.target.ConstructorTestTarget", "<init>", mockTarget);
+		MockObjectManager.addReturnValue(ConstructorTestTarget.class, "<init>", mockTarget);
 		
 		targetOwner = new ConstructorTargetOwner();
 		
 		assertEquals(100, targetOwner.getTarget().getValue());
-		assertEquals(2, MockObjectManager.getCallCount("jp.co.dgic.target.ConstructorTestTarget", "<init>"));
+		assertEquals(2, MockObjectManager.getCallCount(ConstructorTestTarget.class, "<init>"));
 	}
 
 	public void testSystemClass001() throws Exception {
@@ -88,11 +88,11 @@ public class ConstructorTest extends TestCase {
 		fileOwner = new SystemClassOwner();
 		
 		assertEquals("owner", fileOwner.getFile().getName());
-		assertEquals(1, MockObjectManager.getCallCount("java.io.File", "<init>"));
+		assertEquals(1, MockObjectManager.getCallCount(File.class, "<init>"));
 	}
 	
 	public void testSystemClas002() throws Exception {
-		MockObjectManager.addReturnValue("java.io.File", "<init>");
+		MockObjectManager.addReturnValue(File.class, "<init>");
 		
 		fileOwner = new SystemClassOwner();
 
@@ -104,31 +104,31 @@ public class ConstructorTest extends TestCase {
 			assertTrue(re.getMessage().startsWith("Mismatch object type."));
 		}
 		
-		assertEquals(1, MockObjectManager.getCallCount("java.io.File", "<init>"));
+		assertEquals(1, MockObjectManager.getCallCount(File.class, "<init>"));
 	}
 
 	public void testSystemClas003() throws Exception {
 		
-		MockObjectManager.addReturnValue("java.io.File", "<init>", new File("MockOwner"));
+		MockObjectManager.addReturnValue(File.class, "<init>", new File("MockOwner"));
 		
 		fileOwner = new SystemClassOwner();
 		
 		assertEquals("MockOwner", fileOwner.getFile().getName());
-		assertEquals(1, MockObjectManager.getCallCount("java.io.File", "<init>"));
+		assertEquals(1, MockObjectManager.getCallCount(File.class, "<init>"));
 	}
 	
 	public void testThisConstructorCall001() throws Exception {
 		ThisCallConstructorTarget target = new ThisCallConstructorTarget();
 		
 		assertEquals("default", target.getName());
-		assertEquals(2, MockObjectManager.getCallCount("jp.co.dgic.test.ConstructorTest$ThisCallConstructorTarget", "<init>"));
+		assertEquals(2, MockObjectManager.getCallCount(ConstructorTest.ThisCallConstructorTarget.class, "<init>"));
 	}
 
 	public void testThisConstructorCall002() throws Exception {
 		ThisCallConstructorTarget target = new ThisCallConstructorTarget("name");
 		
 		assertEquals("name", target.getName());
-		assertEquals(1, MockObjectManager.getCallCount("jp.co.dgic.test.ConstructorTest$ThisCallConstructorTarget", "<init>"));
+		assertEquals(1, MockObjectManager.getCallCount(ConstructorTest.ThisCallConstructorTarget.class, "<init>"));
 	}
 
 }

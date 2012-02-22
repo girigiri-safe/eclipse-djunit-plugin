@@ -8,11 +8,11 @@ public class UseSystemExitTest extends DJUnitTestCase {
 
 	public void testNormal001() {
 
-		addReturnValue("java.lang.System", "exit");
+		addReturnValue(System.class, "exit");
 
 		UseSystemExit.main();
 
-		Integer arg = (Integer) getArgument("java.lang.System", "exit", 0);
+		Integer arg = (Integer) getArgument(System.class, "exit", 0);
 		assertEquals(0, arg.intValue());
 	}
 

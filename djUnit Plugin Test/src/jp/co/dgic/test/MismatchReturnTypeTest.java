@@ -32,7 +32,7 @@ public class MismatchReturnTypeTest extends TestCase {
 	}
 
 	public void testMismatchReturnType001() throws Exception {
-		MockObjectManager.addReturnValue("jp.co.dgic.target.TestTarget",
+		MockObjectManager.addReturnValue(TestTarget.class,
 				"getBooleanValue", new Integer(0));
 
 		try {
@@ -47,7 +47,7 @@ public class MismatchReturnTypeTest extends TestCase {
 	}
 
 	public void testMismatchReturnType002() throws Exception {
-		MockObjectManager.addReturnValue("jp.co.dgic.target.TestTarget",
+		MockObjectManager.addReturnValue(TestTarget.class,
 				"getByteValue", new Integer(0));
 
 		try {
@@ -62,7 +62,7 @@ public class MismatchReturnTypeTest extends TestCase {
 	}
 
 	public void testMismatchReturnType003() throws Exception {
-		MockObjectManager.addReturnValue("jp.co.dgic.target.TestTarget",
+		MockObjectManager.addReturnValue(TestTarget.class,
 				"getCharValue", new Integer(0));
 
 		try {
@@ -77,7 +77,7 @@ public class MismatchReturnTypeTest extends TestCase {
 	}
 
 	public void testMismatchReturnType004() throws Exception {
-		MockObjectManager.addReturnValue("jp.co.dgic.target.TestTarget",
+		MockObjectManager.addReturnValue(TestTarget.class,
 				"getShortValue", new Integer(0));
 
 		try {
@@ -92,7 +92,7 @@ public class MismatchReturnTypeTest extends TestCase {
 	}
 
 	public void testMismatchReturnType005() throws Exception {
-		MockObjectManager.addReturnValue("jp.co.dgic.target.TestTarget",
+		MockObjectManager.addReturnValue(TestTarget.class,
 				"getIntValue", new Long(0));
 
 		try {
@@ -107,7 +107,7 @@ public class MismatchReturnTypeTest extends TestCase {
 	}
 
 	public void testMismatchReturnType006() throws Exception {
-		MockObjectManager.addReturnValue("jp.co.dgic.target.TestTarget",
+		MockObjectManager.addReturnValue(TestTarget.class,
 				"getLongValue", new Integer(0));
 
 		try {
@@ -122,7 +122,7 @@ public class MismatchReturnTypeTest extends TestCase {
 	}
 
 	public void testMismatchReturnType007() throws Exception {
-		MockObjectManager.addReturnValue("jp.co.dgic.target.TestTarget",
+		MockObjectManager.addReturnValue(TestTarget.class,
 				"getFloatValue", new Integer(0));
 
 		try {
@@ -137,7 +137,7 @@ public class MismatchReturnTypeTest extends TestCase {
 	}
 
 	public void testMismatchReturnType008() throws Exception {
-		MockObjectManager.addReturnValue("jp.co.dgic.target.TestTarget",
+		MockObjectManager.addReturnValue(TestTarget.class,
 				"getDoubleValue", new Integer(0));
 
 		try {
@@ -152,7 +152,7 @@ public class MismatchReturnTypeTest extends TestCase {
 	}
 
 	public void testMismatchReturnType009() throws Exception {
-		MockObjectManager.addReturnValue("jp.co.dgic.target.TestTarget",
+		MockObjectManager.addReturnValue(TestTarget.class,
 				"getField2", new HashMap());
 
 		try {
@@ -167,7 +167,7 @@ public class MismatchReturnTypeTest extends TestCase {
 	}
 
 	public void testMismatchReturnType010() throws Exception {
-		MockObjectManager.addReturnValue("jp.co.dgic.target.TestTarget",
+		MockObjectManager.addReturnValue(TestTarget.class,
 				"setField1", new Object());
 
 		try {
@@ -182,14 +182,14 @@ public class MismatchReturnTypeTest extends TestCase {
 	}
 
 	public void testMismatchReturnType011() throws Exception {
-		MockObjectManager.addReturnValue("jp.co.dgic.target.TestTarget",
+		MockObjectManager.addReturnValue(TestTarget.class,
 				"setField1", new IgnoreMethodValue());
 
 		target.setField1(1);
 	}
 
 	public void testMismatchReturnType012() throws Exception {
-		MockObjectManager.addReturnValue("jp.co.dgic.target.TestTarget",
+		MockObjectManager.addReturnValue(TestTarget.class,
 				"setField1", new NullReturnValue());
 
 		target.setField1(1);

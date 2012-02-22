@@ -21,6 +21,7 @@
  */
 package jp.co.dgic.test;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -73,7 +74,7 @@ public class OutputStreamCloseTest extends DJUnitTestCase {
 		System.out.println();
 		System.out.println();
 
-		addReturnValue("DataOutputStream", "close", e);
+		addReturnValue(DataOutputStream.class, "close", e);
 
 		target.testMethod();
 

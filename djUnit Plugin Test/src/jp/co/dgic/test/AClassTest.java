@@ -11,7 +11,7 @@ public class AClassTest extends DJUnitTestCase {
 
 	public void testMain() {
 
-		addReturnValue("AClass$InnerClass", "getA", new Integer(100));
+		addReturnValue(AClass.InnerClass.class, "getA", new Integer(100));
 
 		AClass.main(null);
 	}

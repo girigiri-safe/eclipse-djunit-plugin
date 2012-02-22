@@ -40,7 +40,7 @@ public class NativeMethodClassTest extends TestCase {
 	}
 	
 	public void testNormal001() throws Exception {
-		MockObjectManager.addReturnValue("NativeMethodClass", "getString", "value");
+		MockObjectManager.addReturnValue(NativeMethodClass.class, "getString", "value");
 		
 //		assertEquals("value", target.getString());
 		
