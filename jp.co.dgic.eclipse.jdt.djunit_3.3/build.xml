@@ -1,0 +1,135 @@
+<?xml version="1.0" ?>
+<project default="release">
+
+	<description>plugin build file.</description>
+
+	<property name="plugin.id" value="jp.co.dgic.eclipse.jdt.djunit" />
+	<property name="version" value="0.8.6"/>
+
+	<property name="runtime.name" value="djunit" />
+	<property name="source.name" value="${runtime.name}-src" />
+	<property name="eclipse.version" value="3.3.x" />
+	<property name="plugin.zip.name" value="${plugin.id}_${eclipse.version}_${version}" />
+	<property name="plugin.folder.name" value="${plugin.id}_${version}" />
+
+	<property name="dist.dir" value="dist" />
+	<property name="temp.dir" value="${dist.dir}/temp" />
+	<property name="updatesite.dir" value="${dist.dir}/${eclipse.version}" />
+	<property name="updatesite.features.dir" value="${updatesite.dir}/features" />
+	<property name="updatesite.plugins.dir" value="${updatesite.dir}/plugins" />
+	<property name="updatesite.feature.jar.name" value="${plugin.id}_${eclipse.version}" />
+
+	<property name="asm1.5.x.folder" value="../djUnit-asm-1.5.x" />
+	<property name="asm2.x.folder" value="../djUnit-asm-2.x" />
+
+	<target name="release">
+
+		<delete dir="${dist.dir}" />
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${temp.dir}" />
+
+		<!-- copy properties files to classes directory -->
+		<copy todir="bin">
+			<fileset dir="src" includes="resources*.properties"></fileset>
+		</copy>
+		
+		<!-- copy asm15x,2x files to bin directory -->
+		<copy todir="bin">
+			<fileset dir="${asm1.5.x.folder}/bin"/>
+			<fileset dir="${asm2.x.folder}/bin"/>
+		</copy>
+
+		<!-- create djunit.jar -->
+		<zip destfile="${dist.dir}/${runtime.name}.jar">
+			<zipfileset dir="bin">
+				<exclude name="**/ByteCodeInstrument.class"/>
+				<exclude name="**/Instrument.class"/>
+				<exclude name="**/TraceImplementer.class"/>
+				<exclude name="**/AdviceImplementer.class"/>
+				<exclude name="**/AbstractModifier.class"/>
+				<exclude name="**/ClassModifier.class"/>
+			</zipfileset>
+		</zip>
+
+		<!-- create djunit-src.jar -->
+		<zip destfile="${dist.dir}/${source.name}.zip">
+			<zipfileset dir="src">
+				<include name="**/*.java"/>
+				<exclude name="**/ByteCodeInstrument.java"/>
+				<exclude name="**/Instrument.java"/>
+				<exclude name="**/TraceImplementer.java"/>
+				<exclude name="**/AdviceImplementer.java"/>
+				<exclude name="**/AbstractModifier.java"/>
+				<exclude name="**/ClassModifier.java"/>
+			</zipfileset>
+			<zipfileset dir="src" includes="**/*.properties"/>
+			<zipfileset dir="asm3.x_2.x"/>
+			<zipfileset dir="asm3.x"/>
+			<zipfileset dir="${asm1.5.x.folder}/src"/>
+			<zipfileset dir="${asm2.x.folder}/src"/>
+		</zip>
+
+		<!-- copy files to temp directory -->
+		<copy todir="${temp.dir}">
+			<fileset dir="${dist.dir}">
+				<include name="${runtime.name}.jar" />
+				<include name="${source.name}.zip" />
+			</fileset>
+			<fileset dir="./">
+				<exclude name="${dist.dir}/**" />
+				<exclude name="bin/**" />
+				<exclude name="src/**" />
+				<exclude name=".*" />
+				<exclude name="build.xml*" />
+				<exclude name="build.properties" />
+				<exclude name="junitsupport*"/>
+				<exclude name="junitsupport*/**"/>
+				<exclude name="backup/**"/>
+				<exclude name="lib/jcoverage.jar"/>
+				<exclude name="lib/ant.jar"/>
+				<exclude name="lib/optional.jar"/>
+				<exclude name="lib/javassist.jar"/>
+				<exclude name="lib/bcel-5.2.jar"/>
+				<exclude name="javassist*/**"/>
+				<exclude name="Javassist*.*"/>
+				<exclude name="site.xml"/>
+				<exclude name="feature.xml"/>
+				<exclude name="**/*.png"/>
+				<exclude name="asm3.x/**"/>
+				<exclude name="asm3.x_2.x/**"/>
+				<exclude name=".settings/**"/>
+			</fileset>
+		</copy>
+
+		<!-- create downloadable zip file -->
+		<zip destfile="${dist.dir}/${plugin.zip.name}.zip">
+			<zipfileset dir="${temp.dir}" prefix="${plugin.folder.name}"/>
+		</zip>
+
+		<!-- create jar file for updatesite -->
+		<zip destfile="${dist.dir}/${plugin.folder.name}.jar">
+			<zipfileset dir="${temp.dir}"/>
+		</zip>
+
+		<!-- create updatesite -->
+		<mkdir dir="${updatesite.dir}"/>
+		<mkdir dir="${updatesite.features.dir}"/>
+		<mkdir dir="${updatesite.plugins.dir}"/>
+
+		<copy todir="${updatesite.dir}">
+			<fileset dir="./" includes="site.xml"/>
+		</copy>
+		<zip destfile="${updatesite.plugins.dir}/${plugin.folder.name}.jar">
+			<zipfileset dir="${temp.dir}"/>
+		</zip>
+		<zip destfile="${updatesite.features.dir}/${updatesite.feature.jar.name}.jar">
+			<zipfileset dir="./" includes="feature.xml"/>
+			<zipfileset dir="./" includes="dgic.png"/>
+		</zip>
+
+		<!-- clean up -->
+		<delete dir="${temp.dir}" />
+		<delete file="${dist.dir}/${source.name}.zip" />
+	</target>
+
+</project>

@@ -1,0 +1,275 @@
+djUnit for Eclipse	3.2/3.3/3.4/3.5/3.6
+
+	バージョン0.8.6
+
+djUnitについては、下記サイトを参照願います。
+
+	http://works.dgic.co.jp/djwiki/
+
+連絡先
+
+	developer@dgic.co.jp
+
+外部ライブラリについて
+
+	djUnitは、下記の外部ライブラリを使用しています。
+	djUnitは、それらのバイナリを含んでいます。
+
+	ASM           3.1, 2.2.1, 1.5.3     http://asm.objectweb.org/
+	ORO           2.0.7   http://jakarta.apache.org/oro/
+	jcoverage/gpl 1.0.5   http://www.jcoverage.com/
+
+パッチ済ライブラリについて
+
+	djUnitは、修正が加えられたjcoverage-main.jar(jcoverage-djunit-1.0.5.jar)を使用しています。
+	修正されたソースは、下記にあります。
+
+	jcoverage-1.0.5-patch.zip
+
+version
+
+	0.8.6 [2011/09/30]
+		・クラスローダの例外処理を修正
+		・クラス修正処理メッセージの文字化けを修正
+		・SWTの「no more handles」対策として、カバレッジレポートのFontをdisposeするよう修正
+		・バイトコード操作の速度改善
+
+	0.8.5 [2009/12/17]
+		・EnumクラスのカバレッジとVMOによるテストを可能にした
+		・カバレッジレポート(HTML形式)のCharset指定をプロジェクト設定画面に追加
+		・バイトコード操作の速度改善
+		・Asm1.5.xでfinallyの行が未実行になるバグを修正
+		・カバレッジの表示ロジックを修正
+				実行可能な行が0の時
+					(旧) ラインカバレッジ 0%
+					(新) ラインカバレッジ 100%
+				分岐箇所が0の時
+					(旧) ブランチカバレッジ 0%
+					(新) ブランチカバレッジ 100%
+
+	0.8.4 [2008/12/02]
+	
+		・ASM使用時、addReturnValueなどのクラス名の指定が、BCELの時と違っていたので、BCELと同じになるよう修正
+		
+			[例]
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+				sdf.format(...);
+				...
+
+			[Old(0.8.3)]
+				addReturnValue(DateFormat.class, "format", "2008/06/10");
+			[New(0.8.4)]
+				addReturnValue(SimpleDateFormat.class, "format", "2008/06/10");
+		
+		・Java5でASM使用時に、StringBuilder#length()などが使用できないバグを修正
+		・BCELライブラリを使用しない
+		・ASMライブラリは、バージョン3.0, 2.2.1, 1.5.3の中から選択可能
+		・djunit-coverage-reportタスクにcharset属性追加
+
+	0.8.3 [2007/12/11]
+
+		・Generics, Enum, Annotationのカバレッジ処理を修正
+		・配列のcloneメソッドを実行すると例外が発生するバグを修正
+		・Interfaceのメソッド(PreparedStatementのcloseなど)に例外をセットできないバグを修正
+		・interfaceのメソッドに戻り値などを指定する時は、実装側クラス名ではなくinterface名で指定できるよう修正
+		・マーカー削除処理に失敗するバグを修正
+
+	0.8.2 [2006/11/30]
+	
+		・JUnit4に対応(Eclipse3.2)
+		・マーカー作成をバックグラウンドで処理できるよう修正(Eclipse3.0以降)
+		・プラグインのディレクトリ名を変更
+		
+			[修正前] jp.co.dgic.eclipse.jdt.djunit_X.X.x_0.8.2
+			[修正後] jp.co.dgic.eclipse.jdt.djunit_0.8.2
+
+		・Java1.3での実行を可能にした
+		・UTF-8のソースで未実行行のマーカー位置がずれてしまうバグを修正
+		・ANT1.6.5用に、djUnitタスクのクラスパスを調整した
+		・ライブラリのバージョンを変更した
+		
+			- BCEL 5.1 -> 5.2
+			- ASM  2.1 -> 3.0
+
+	0.8.1 [2006/07/12]
+	
+		・クラスのカバレッジレポートを複数ページに分割して表示するよう修正
+		
+			クラスが大量にある場合に、ウィンドウリソースが不足するバグの対策
+			
+		・JVMバージョンが1.3の時に、エラーメッセージを表示して終了するよう修正
+		・１行のクラスファイルがあるときに無限ループにが発生するバグを修正
+
+	0.8.0 [2005/12/05]
+
+		・Java SE 5 サポート
+		・バイトコード操作ライブラリを選択可能にした(BCEL or ASM)
+		・「テスト終了後、エディターにマーカーを付ける」オプションを追加
+		・クラスローダを全部書き直した
+
+			Seasar2、Hivemindなど、他のライブラリ同時に使用できるよう調整した
+
+		・DJUnitタスク修正
+
+			djunit.jarをANT_HOME/libにコピーしなくても良いよう調整
+
+		・ブランチカバレッジのロジックを修正
+		・Plugin ID を変更
+
+			[旧]jp.co.dgic.eclipse.jdt.junit -> [新]jp.co.dgic.eclipse.jdt.djunit
+
+		・DJUnitTestCaseをabstractクラスに修正
+
+		・トレース機能を削除
+		・djunit-instrumentタスクを削除
+
+	0.7.2 [2005/09/14]
+
+		・[djUnit][VirtualMockObjects]「依存ライブラリを無視する」オプションと、
+										「下記クラスは無視しない」パターン指定を追加した
+		・[djUnit][djUnit ClassLoader]実行時にVMオプションである「-noverify」を付けるオプションを追加した
+
+	0.7.1 [2005/07/08]
+
+		・実行時のメモリ消費が少なくなるようVMOのバイトコード加工処理を調整した
+		・プロジェクトが循環参照されているときにStackOverflowErrorが発生するバグを修正した
+
+	0.7.0 [2005/03/17]
+
+		・assertArgumentPassedで、引数がnullであることを確認できるようにした
+		・コンパイラ準拠レベルを「1.4」でのバイトコード加工処理を調整した
+		・Traceのインデントのズレを調整した
+		・カバレッジレポートのカラム幅を調整した
+		・バイトコード加工処理のバグ修正
+		・antタスク「djunit」のtargetSrcDir属性に相対パスを設定できるようにした
+
+	0.7.0-beta2[2005/03/09]
+
+		・antタスク「djunit-instrument」の実行時エラーを修正
+		・バイトコード加工処理のバグ修正
+		・カバレッジリポート内の不要な項目を削除
+		・antタスク「djunit」は、javacでコンパイルされたクラスに対応した
+
+	0.7.0-beta1[2005/03/02]
+
+		・バイトコード加工ライブラリをBCELに変更した
+		・デバッグモードで実行できるようにした
+
+	0.6.5 [2005/02/28]
+
+		・djUnit以外の起動のときは、カバレッジレポート生成を行わないよう修正
+		・jcoverage-main.jarのファイル名をjcoverage-djunit-1.0.5.jarに改名
+		・jcoverage-djunit-1.0.5.jarにjcoverageのtasks.propertiesを追加
+		・Coverage reportビューに、マーカー削除、マーカー生成ボタン追加
+		・VMOのメソッドのaddReturnValueなどで、クラス名を、Classオブジェクトで指定可能にした
+		・改行コードLFのときにマーカーがズレるバグを修正
+
+	0.6.4 [2005/02/03]
+
+		・トレース機能で、メソッド実行終了時の「戻り値」「戻り値の型」を表示するよう修正
+		・トレースのインデントのズレを修正
+		・プロジェクトプロパティー「djUnit」での対象クラスパターン追加、編集時の動作を修正
+		・Coverage report viewのメニューボタン押下時、NullPointerExceptionが発生する現象を修正
+
+	0.6.3 [2004/12/27]
+
+		・javaコンパイラの設定のコンパイラ準拠レベルを「1.4」にした時に、CannotCompileExceptionが発生する現象を修正(javassist.jar)
+		・バージョン1.2.8以外のlog4jを使用するとき、実行時エラーとなる現象を修正(jcoverage-main.jar)
+
+	0.6.2 [2004/12/15]
+
+		・AllTestsのsuiteメソッドなどで、Class#getPackage()がnullになってしまうバグを修正
+		・参照プロジェクトのソースパスを再帰的に検索するよう修正
+
+	0.6.1 [2004/12/01]
+
+		・DJUnitClassLoaderのロードさせないパッケージ判定処理のバグ修正
+		・DJUnitClassLoaderのロードさせないパッケージのデフォルト値修正
+		・返却値の型チェック修正
+		・未実行行のアイコンを表示するよう修正
+		・未実行行一覧を、タスクビューに表示するよう修正
+		・ソース中の未実行行に、アンダーラインを表示するよう修正
+		・JUnitテスト起動時のNumberFormatException発生を修正
+
+	0.6.0 [2004/11/18]
+
+		・HTML形式のjcoverage report生成機能追加
+		・ANTのタスク「djunit-coverage-report」(テストバージョン)タスク追加
+
+	0.5.5 [2004/11/16]
+
+		・Virtual Mock Objectsのクラス加工ロジックを調整
+
+	0.5.4 [2004/11/12]
+
+		・プロジェクトプロパティー「djUnit」でのパターン指定部分に、チェックボックスを追加
+		・パッケージ名を省略したときの返却値検索のバグ修正
+
+	0.5.3 [2004/10/18]
+
+		・ANTのタスク「djunit」タスク(テストバージョン)追加
+
+	0.5.2 [2004/10/04]
+
+		・addReturnValueなどの引数valueにnullが指定されたとき、例外となるよう修正
+		・コンストラクタ呼び出し時の引数を保持するタイミングを修正
+		・日本語メッセージファイルを入れ忘れていたため追加(DJUnitMessages_ja.properties)
+		・メンバービューで、テストメソッドを選択後、右クリックして表示される実行メニューに「djUnitテスト」を追加
+
+	0.5.1 [2004/09/30]
+
+		・ポインターを受け取らないnewステートメントで発生する'CannotCompileException'を回避
+
+	0.5.0 [2004/09/22]
+
+		・IReturnValueProviderによるメソッドの戻り値指定方法を追加
+		・Coverage対象クラスに「含む」パターン指定を追加
+		・VirtualMockObjects実行中の例外処理を強化し、メッセージを調整
+		・jdk1.3に対応(暫定)
+		・パターンマッチング処理ライブラリ変更 jdk1.4 -> jakarta oro
+
+		・匿名クラスのマーキングに失敗するバグを修正
+		・メソッド呼び出し時の引数を保持するタイミングを修正
+		・Linux環境でCoverageReportの表示が崩れてしまうのを対策
+
+	0.4.3 [2004/08/03]
+
+		・VirtualMockObject生成時に、一部、冗長なアドバイスが挿入されてしまう問題を修正
+
+	0.4.2 [2004/07/13]
+
+		・Coverage測定結果(jcoverage.ser)ファイル読み込みタイミング調整
+		・CoverageViewの再表示ボタン押下で、タスク一覧と未実行行マーカーも再表示するよう修正
+
+	0.4.1 [2004/07/12]
+
+		・Windows2000で、CoverageViewの初期表示に表示されるメッセージが文字化けするバグを修正
+
+	0.4.0 [2004/07/12]
+
+		・インナークラス対応
+
+	0.3.2 [2004/07/09]
+
+		・JCoverage作業フォルダのチェック処理追加
+		・TraceにELapsedTime表示追加
+
+	0.3.1 [2004/07/08]
+
+		・クラスのロード状況をステータスラインに表示するよう修正
+		・Trace対象クラスを指定できるよう修正
+		・CoverageReportViewがリサイズできないバグを修正
+
+	0.3.0 [2004/07/07]
+
+		・ClassLoaderを全部書き換え
+		・DJUnit Test Result Viewを廃止し、従来のJUnitプラグインのビューに表示してもらうよう修正
+		・不要なソースを削除
+
+	0.2.0 [2004/07/05]
+
+		・antタスク djunit-instrument追加
+
+	0.1.0 [2004/07/02]
+
+		・とりあえず公開できそうなバージョン。

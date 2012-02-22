@@ -1,0 +1,285 @@
+djUnit for Eclipse	3.2/3.3/3.4/3.5/3.6
+
+	version 0.8.6
+
+djUnit plugin site is
+
+	http://works.dgic.co.jp/djunit/
+
+contact
+
+	developer@dgic.co.jp
+
+third party dependencies
+
+	djUnit plugin is dependant on the following third party libraries, which
+	are included in djUnit plugin binary distribution.
+
+	ASM           3.1, 2.2.1, 1.5.3     http://asm.objectweb.org/
+	ORO           2.0.7   http://jakarta.apache.org/oro/
+	jcoverage/gpl 1.0.5   http://www.jcoverage.com/
+
+About modified libraries
+
+	djUnit is using a modified jcoverage-main.jar(jcoverage-djunit-1.0.5.jar).
+	The modified sources are in the following.
+
+	jcoverage-1.0.5-patch.zip
+
+version
+
+	0.8.6 [2011/09/30]
+
+		- Changed a exception handler of djUnit class loader.
+		- [Fixed bug] Mojibake of djUnit class loader message.
+		- [Fixed bug] SWT's "no more handles" occurs
+		- Bytecode process was improved.
+
+	0.8.5 [2009/12/17]
+
+		- Enabled a coverage and test with VMO for Enum class.
+		- new parameter "HTML Report Charset" was added into project settings.
+		- Bytecode process was improved.
+		- [Fixed bug] Coverage target line(finally clause) bug with asm1.5.x.
+		- Changed the coverage logic.
+				coverage target lines is 0,
+					(Old) line coverage is 0%
+					(New) line coverage is 100%
+				branch is 0,
+					(Old) branch coverage is 0%
+					(New) branch coverage is 100%
+
+	0.8.4 [2008/12/02]
+
+		- [Fixed bug] When using the ASM library, The class name argument (for addReturnValue method, etc.) is different to a BCEL's.
+
+			[ex.]
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+				sdf.format(...);
+				...
+
+			[Old(0.8.3)]
+				addReturnValue(DateFormat.class, "format", "2008/06/10");
+			[New(0.8.4)]
+				addReturnValue(SimpleDateFormat.class, "format", "2008/06/10");
+
+		- [Fixed bug] Can not use the StringBuilder class.(ASM, Java5)
+		- new Byte code engineering libraries added.(ASM2.2.1, ASM1.5.3)
+		- BCEL was removed
+
+	0.8.3 [2007/12/11]
+
+		- The coverage was improved for generics, Enum and Annotation.
+		- When a mock value be specified to a interface method, can specify with the interface name(not a implemented class name).
+		- [Fixed bug] A exception occurs when executing a Array's Clone method.
+		- [Fixed bug] Can not set an exception to interface's method(ex. PreparedStatement#close).
+		- [Fixed bug] The marker deletion process fails.
+
+	0.8.2 [2006/11/30]
+	
+		- JUnit4 support(Eclipse3.2).
+		- The coverage marker processing is done in the background.
+		- This plugin's folder name has changed.
+		
+			[before] jp.co.dgic.eclipse.jdt.djunit_X.X.x_0.8.2
+			[after]  jp.co.dgic.eclipse.jdt.djunit_0.8.2
+
+		- Executable on JVM version 1.3.
+		- [Fixed bug] The marker position in a UTF-8 sources.
+		- The classpath of djUnit task was adjusted for ANT 1.6.5.
+		- new version BCEL and ASM.
+		
+			- BCEL 5.1 -> 5.2
+			- ASM  2.1 -> 3.0
+
+	0.8.1 [2006/07/12]
+	
+		- [Fixed bug] The class coverage report is divided into plural pages.
+		- Displays a error message when the JVM version is 1.3.
+		- [Fixed bug] Infinity loop by the single line source code.
+
+	0.8.0 [2005/12/05]
+
+		- Java SE 5 platform support.
+		- New bytecode library(ASM) was added.
+
+			Default library is The ASM. It's selectable.
+
+		- The coverage option "Marking to editor when test has finished" was added.
+		- Rewrote all of the ClassLoader.
+
+			djUnit became more friendly to hivemind, seasar2 and more.
+
+		- DJUnit task was changed.
+
+			To copy the djUnit.jar into ANT/lib has became to be not required.
+
+		- The brunch coverage calculation logic was changed.
+		- The Plugin ID was changed.
+		- DJUnitTestCase class changed to abstract class.
+
+		- The trace function was removed.
+		- djunit-instrument task was removed.
+
+	0.7.2 [2005/09/14]
+
+		[djUnit][VirtualMockObjects] 'ignore dependency library' and 'not ignore the following classes' option was added.
+		[djUnit][djUnit ClassLoader] 'use -noverify(VM option) for JDK5' option was added.
+
+	0.7.1 [2005/07/08]
+
+		The class modifier of VMO was adjusted for reducing the using runtime memory.
+
+		[Fixed bugs]
+		StackOverflowError is thrown, when a cyclic reference between some projects.
+
+	0.7.0 [2005/03/17]
+
+		'assertArgumentPassed' is able to confirm that argument is null.
+		Column width of coverage report was adjusted.
+
+		[Fixed bugs]
+		Byte code process was adjusted.
+		Trace indent was adjusted.
+		ant djUnit task's 'targetSrcDir' attribute can use relative path.
+
+	0.7.0-beta2 [2005/03/09]
+
+		Delete the redundant column in coverage report.
+
+		[Fixed bugs]
+		'djunit-instrument' of ant task can not execute.
+		Byte code process was adjusted.
+		djunit task of ant was adjusted for 'javac'.
+
+	0.7.0-beta1 [2005/03/02]
+
+		Execution by debug mode became possible.
+		Byte code engineering library was changed to jakarta BCEL.
+
+	0.6.5 [2005/02/28]
+
+		Coverage report is created by only "djUnit Test".
+		File name of jcoverage-main.jar was renamed to jcoverage-djunit-1.0.5.jar.
+		jcoverage's tasks.property file was added into jcoverage-djunit-1.0.5.jar.
+		"Delete marker" button and "Create marker" button were added(Coverage coverage report view).
+		In the VMO's methods, The class object can be specified instead of the class name. (addReturnValue, etc.)
+
+		[Fixed bugs]
+		The coverage marker's position was adjusted(when Line feed code is LF, etc).
+
+	0.6.4 [2005/02/03]
+
+		"return value" and "return value type" are displayed by the trace function at method execution ends.
+
+		[Fixed bugs]
+		The indent displayed by the trace function was adjusted.
+		Empty string is added, when cancel to adding the include pattern in project property.
+		NullPointerException is thrown,when the menu button in coverage report view was pushed.
+
+	0.6.3 [2004/12/27]
+
+		[Fixed bug]CannotCompileException is thrown
+					when "compiler compliance level" of java compiler settings is set to "1.4".
+		[Fixed bug]Can not test when using log4j version 1.1.3(etc).
+
+		javassist.jar and jcoverage-main.jar were modified.
+
+		- javassist.jar
+
+			javassist.compiler.MemberCodeGen#lookupMethod method was modified.
+			This method searches for implemented interfaces.
+
+		- jcoverage-main.jar
+
+			log4j call was removed.
+			jcoverage-main.jar never needs log4j.jar.
+
+	0.6.2 [2004/12/15]
+
+		[Fixed bugs]
+		NullPointerException at all test's suite method("AllTests.class.getPackage().getName()", etc).
+		A bug at searching source path in reference project.
+
+	0.6.1 [2004/12/01]
+
+		The non-performed line informations display in Task View.
+		Underline is displayed at the non-performed line in source editor.
+		'djUnit excluded paths' default value was changed.
+		Return value type check was changed.
+
+		[Fixed bugs]
+		A bug at judgment 'djUnit excluded paths' in DJUnitClassLoader.
+		The icon of the non-performed line marker of a Java sauce editor becomes yellow Mark of warning.
+		Running a test as jUnit (not as djUnit) results in a NumberFormatException (only visible in the eclipse error log).
+
+
+	0.6.0 [2004/11/18]
+
+		HTML formatted jcoverage report export function was added.
+		ANT task 'djunit-coverage-report'(Test version) was added.
+
+	0.5.5 [2004/11/16]
+
+		The class modifier of Virtual mock objects was tuned.
+
+	0.5.4 [2004/11/12]
+
+		add check box into pattern table in Project's property 'djUnit'
+
+		[Fixed bugs]
+		A bug at searching return value by simple class name
+
+	0.5.3 [2004/10/18]
+
+		ANT task 'djunit'(Test version) was added
+
+	0.5.2 [2004/10/04]
+
+		Throws Exception When value parameter is null in 'addReturnValue, etc.'
+		Timing of saving constructor's argument values was adjusted
+		add Japanese message file(DJUnitMessages_ja.properties)
+		Execution of only the selected test method on member view is possible
+
+	0.5.1 [2004/09/30]
+
+		[Fixed bugs]
+		'CannotCompileException' problem in 'new' statement of no receive pointer variable
+
+	0.5.0 [2004/09/22]
+
+		[Enhanced functions]
+		A way to set return value with 'IReturnValueProvider'
+		Coverage class INCLUDE pattern in project property dialog
+		Message of exception in VirtualMockObjects was adjusted
+		jdk1.3 support(partial)
+		Regular expression library was changed (jdk1.4 -> jakarta oro)
+
+		[Fixed bugs]
+		Failed to marking of Anonymous class
+		Method's arguments was not saved(partial)
+		CoverageReportView's repaint problems on Linux
+
+	0.4.3 [2004/08/03]
+
+		[Fixed bugs]
+		Add Meaningless advices to VirtualMockObjects
+
+	0.4.2 [2004/07/13]
+
+		Timing to Coverage results(jcoverage.ser) file read was changed
+		When the Redraw button in coverage view was pushed, The Marking process is run again
+
+	0.4.1 [2004/07/12]
+
+		[Fixed bugs]
+		Character transformation in coverage view on Windows2000
+
+	0.4.0 [2004/07/12]
+
+		[Enhanced functions]
+		Inner class support
+
+	0.3.2 [2004/07/09]
+
+		First public release

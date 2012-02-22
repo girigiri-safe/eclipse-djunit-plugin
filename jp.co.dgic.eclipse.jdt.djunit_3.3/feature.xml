@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="jp.co.dgic.eclipse.jdt.djunit.feature"
+      label="djUnit plugin for Eclipse 3.3.x"
+      version="0.8.6"
+      provider-name="dGIC"
+      image="dgic.png">
+
+   <description>
+      	0.8.6 [2011/09/30]
+      	- Changed a exception handler of djUnit class loader.
+      	- [Fixed bug] Mojibake of djUnit class loader message.
+      	- [Fixed bug] SWT's "no more handles" occurs
+      	- Bytecode process was improved.
+   </description>
+
+   <copyright>
+      Copyright (C)2004 dGIC Corporation.
+   </copyright>
+
+   <license>
+      License Agreement
+You must accept this license agreement in order to install this
+feature into your product.
+
+/**
+ * Copyright (C)2004 dGIC Corporation.
+ * 
+ * This file is part of djUnit plugin.
+ * 
+ * djUnit plugin is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * djUnit plugin is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * djUnit plugin; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ *  
+ */
+   </license>
+
+   <plugin
+         id="jp.co.dgic.eclipse.jdt.djunit"
+         download-size="1155"
+         install-size="1466"
+         version="0.8.6"/>
+
+</feature>
