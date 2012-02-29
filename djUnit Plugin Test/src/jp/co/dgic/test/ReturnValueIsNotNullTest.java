@@ -23,7 +23,7 @@ public class ReturnValueIsNotNullTest extends DJUnitTestCase {
 			addReturnValue(AClass.class, "getName", null);
 			fail("この行は実行されないはず");
 		} catch (DJUnitRuntimeException dre) {
-			assertEquals((Object)"Return value must be NOT null.[AClass.getName]", (Object)dre.getMessage());
+			assertEquals((Object)"Return value must be NOT null.[jp.co.dgic.target.AClass.getName]", (Object)dre.getMessage());
 		}
 	}
 
@@ -32,7 +32,7 @@ public class ReturnValueIsNotNullTest extends DJUnitTestCase {
 			setReturnValueAt(AClass.class, "getName", 0, null);
 			fail("この行は実行されないはず");
 		} catch (DJUnitRuntimeException dre) {
-			assertEquals("Return value must be NOT null.[AClass.getName]", dre.getMessage());
+			assertEquals("Return value must be NOT null.[jp.co.dgic.target.AClass.getName]", dre.getMessage());
 		}
 	}
 	public void testSetReturnValueAtAllTimes() throws Exception {
@@ -40,7 +40,7 @@ public class ReturnValueIsNotNullTest extends DJUnitTestCase {
 			setReturnValueAtAllTimes(AClass.class, "getName", null);
 			fail("この行は実行されないはず");
 		} catch (DJUnitRuntimeException dre) {
-			assertEquals("Return value must be NOT null.[AClass.getName]", dre.getMessage());
+			assertEquals("Return value must be NOT null.[jp.co.dgic.target.AClass.getName]", dre.getMessage());
 		}
 	}
 }
