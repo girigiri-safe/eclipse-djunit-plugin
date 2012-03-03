@@ -3,7 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="asm3.x_2.x"/>
 	<classpathentry kind="src" path="asm3.x"/>
-	<classpathentry exported="true" kind="lib" path="lib/djunit-premain.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/asm-3.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jakarta-oro-2.0.7.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jcoverage-djunit-1.0.5.jar" sourcepath="jcoverage-1.0.5-patch.zip"/>

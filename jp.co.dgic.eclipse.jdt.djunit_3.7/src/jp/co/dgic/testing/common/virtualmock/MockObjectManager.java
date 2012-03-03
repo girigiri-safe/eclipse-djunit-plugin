@@ -31,11 +31,14 @@ public class MockObjectManager {
 
 	public static void addReturnValue(String className, String methodName, Object returnValue) {
 
-		InternalMockObjectManager.getTestData().put(makeKey(className, methodName), returnValue);
+		VirtualMockInstrumentUtils.instrument(className, methodName);
+
+		// InternalMockObjectManager.getTestData().put(
+		// makeKey(className, methodName), returnValue);
+		InternalMockObjectManager.putTestData(className, methodName, returnValue);
 	}
 
 	public static void addReturnValue(Class cls, String methodName, Object returnValue) {
-
 		addReturnValue(cls.getName(), methodName, returnValue);
 	}
 
@@ -60,8 +63,10 @@ public class MockObjectManager {
 	}
 
 	public static void setReturnValueAt(String className, String methodName, int index, Object returnValue) {
-
-		InternalMockObjectManager.getTestData().setAt(makeKey(className, methodName), index, returnValue);
+		VirtualMockInstrumentUtils.instrument(className, methodName);
+		// InternalMockObjectManager.getTestData().setAt(
+		// makeKey(className, methodName), index, returnValue);
+		InternalMockObjectManager.setTestDataAt(className, methodName, index, returnValue);
 	}
 
 	public static void setReturnValueAt(Class cls, String methodName, int index, Object returnValue) {
@@ -90,8 +95,10 @@ public class MockObjectManager {
 	}
 
 	public static void setReturnValueAtAllTimes(String className, String methodName, Object returnValue) {
-
-		InternalMockObjectManager.getTestData().putValueAtAllTimes(makeKey(className, methodName), returnValue);
+		VirtualMockInstrumentUtils.instrument(className, methodName);
+		// InternalMockObjectManager.getTestData().putValueAtAllTimes(
+		// makeKey(className, methodName), returnValue);
+		InternalMockObjectManager.putTestDataAtAllTimes(className, methodName, returnValue);
 	}
 
 	public static void setReturnValueAtAllTimes(Class cls, String methodName, Object returnValue) {
@@ -126,7 +133,7 @@ public class MockObjectManager {
 	public static Object getReturnValue(String classAndMethodName) {
 		InternalMockObjectManager.printGetReturnValue(classAndMethodName);
 
-		return InternalMockObjectManager.getTestData().get(classAndMethodName);
+		return InternalMockObjectManager.getReturnValue(classAndMethodName);
 	}
 
 	public static Object getReturnValue(Class cls, String methodName) {
@@ -157,7 +164,9 @@ public class MockObjectManager {
 	}
 
 	public static int getCallCount(String className, String methodName) {
-		return InternalMockObjectManager.getCallsMade().size(makeKey(className, methodName));
+		// return InternalMockObjectManager.getCallsMade().size(
+		// makeKey(className, methodName));
+		return InternalMockObjectManager.getCallCount(className, methodName);
 	}
 
 	public static int getCallCount(Class cls, String methodName) {
@@ -175,7 +184,10 @@ public class MockObjectManager {
 	public static Object getArgument(String className, String methodName, int methodIndex, int argumentIndex) {
 
 		Object argument = null;
-		Object[] arguments = (Object[]) InternalMockObjectManager.getCallsMade().get(makeKey(className, methodName), methodIndex);
+		// Object[] arguments = (Object[]) InternalMockObjectManager
+		// .getCallsMade()
+		// .get(makeKey(className, methodName), methodIndex);
+		Object[] arguments = (Object[]) InternalMockObjectManager.getArgument(className, methodName, methodIndex);
 		if (arguments != null) {
 			argument = arguments[argumentIndex];
 		}
@@ -188,7 +200,9 @@ public class MockObjectManager {
 	}
 
 	public static boolean isCalled(String className, String methodName) {
-		return InternalMockObjectManager.getCallsMade().get(makeKey(className, methodName)) != null;
+		// return InternalMockObjectManager.getCallsMade().get(
+		// makeKey(className, methodName)) != null;
+		return InternalMockObjectManager.isCalled(className, methodName);
 	}
 
 	public static boolean isCalled(Class cls, String methodName) {
@@ -198,10 +212,10 @@ public class MockObjectManager {
 	public static void assertArgumentPassed(String className, String methodName, int argumentIndex, Object argumentValue) {
 
 		Object argument = getArgument(className, methodName, argumentIndex);
-		if (argument == null && argumentValue == null) return;
+		if (argument == null && argumentValue == null)
+			return;
 		if (argument == null || !argument.equals(argumentValue))
-			Assert.fail("The argument index[" + argumentIndex + "] of method '" + methodName + "' in class '" + className
-							+ "' should have the value '" + argumentValue + "' but it was '" + argument + "'!");
+			Assert.fail("The argument index[" + argumentIndex + "] of method '" + methodName + "' in class '" + className + "' should have the value '" + argumentValue + "' but it was '" + argument + "'!");
 	}
 
 	public static void assertArgumentPassed(Class cls, String methodName, int argumentIndex, Object argumentValue) {

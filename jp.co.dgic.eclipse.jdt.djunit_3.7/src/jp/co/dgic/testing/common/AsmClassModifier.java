@@ -35,8 +35,8 @@ public class AsmClassModifier implements IClassModifier {
 
 	public AsmClassModifier() {
 		modifier = new AsmCoverageInstrumenter();
-		AsmAdviceImplementer vmoModifier = new AsmAdviceImplementer();
-		modifier.setNext(vmoModifier);
+//		AsmAdviceImplementer vmoModifier = new AsmAdviceImplementer();
+//		modifier.setNext(vmoModifier);
 	}
 
 	public byte[] getModifiedClass(String className) throws Exception {

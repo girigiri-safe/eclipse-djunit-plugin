@@ -237,8 +237,19 @@ public class DJUnitLaunchConfiguration extends JUnitLaunchConfigurationDelegate 
 			throw new DJUnitRuntimeException("load djunit-premain.jar was failed.", e);
 		}
 
+		String bootstrupJarPath = null;
+		try {
+			bootstrupJarPath = new File(FileLocator.toFileURL(new URL(url, LIB_DIR + "djunit-bootstrup.jar")).getFile()).getAbsolutePath();
+		} catch (MalformedURLException e) {
+			throw new DJUnitRuntimeException("load asm-3.1.jar was failed.", e);
+		} catch (IOException e) {
+			throw new DJUnitRuntimeException("load asm-3.1.jar was failed.", e);
+		}
+		
 		StringBuffer sb = new StringBuffer();
 		sb.append("-javaagent:" + premainJarPath);
+		sb.append(" ");
+		sb.append("-Xbootclasspath/a:" + bootstrupJarPath);
 		sb.append(" ");
 
 		sb.append(getCoverageWorkingDirectory(javaProject));

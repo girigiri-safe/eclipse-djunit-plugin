@@ -84,25 +84,25 @@ public abstract class AbstractAsmMethodVisitor extends MethodAdapter implements 
 		super.visitTypeInsn(opcode, desc);
 	}
 
-	public void visitMethodInsn(int opcode, String owner, String name, String desc) {
-
-		boolean isInterface = isInterface(owner);
-		
-		String newOwner = owner;
-		if (!isInterface) {
-			newOwner = getOwnerClassName(owner, name, desc);
-		}
-
-		if (!owner.equals(newOwner)) {
-			InternalMockObjectManager.printConsole("### owner name : " + owner + ", real owner name : " + newOwner + ", desc: " + desc + " ###");
-		}
-		
-		if (isConstructor(name)) {
-			createConstructorCall(opcode, newOwner, name, desc);
-			return;
-		}
-		createMethodCall(opcode, newOwner, name, desc);
-	}
+//	public void visitMethodInsn(int opcode, String owner, String name, String desc) {
+//
+//		boolean isInterface = isInterface(owner);
+//		
+//		String newOwner = owner;
+//		if (!isInterface) {
+//			newOwner = getOwnerClassName(owner, name, desc);
+//		}
+//
+//		if (!owner.equals(newOwner)) {
+//			InternalMockObjectManager.printConsole("### owner name : " + owner + ", real owner name : " + newOwner + ", desc: " + desc + " ###");
+//		}
+//		
+//		if (isConstructor(name)) {
+//			createConstructorCall(opcode, newOwner, name, desc);
+//			return;
+//		}
+//		createMethodCall(opcode, newOwner, name, desc);
+//	}
 
 	public void createMethodCall(int opcode, String owner, String name, String desc) {
 

@@ -21,6 +21,8 @@
  */
 package jp.co.dgic.testing.common.virtualmock.asm;
 
+import jp.co.dgic.testing.common.virtualmock.annotation.VirtualMockInstrumented;
+
 import org.objectweb.asm.MethodVisitor;
 
 public class AsmMethodVisitor extends AbstractAsmMethodVisitor {
@@ -31,6 +33,9 @@ public class AsmMethodVisitor extends AbstractAsmMethodVisitor {
 	}
 
 	public void visitCode() {
+
+		String annDesc = "L" + VirtualMockInstrumented.class.getName().replace('.', '/') + ";";
+		mv.visitAnnotation(annDesc, true);
 
 		super.visitCode();
 

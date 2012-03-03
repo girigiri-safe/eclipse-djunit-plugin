@@ -23,7 +23,6 @@ package jp.co.dgic.testing.common.virtualmock;
 
 import jp.co.dgic.testing.common.DJUnitRuntimeException;
 
-
 public class InternalMockObjectManager {
 
 	private static ReturnValueList testData = new ReturnValueList();
@@ -35,12 +34,40 @@ public class InternalMockObjectManager {
 		callsMade.clear();
 	}
 
-	public static ReturnValueList getTestData() {
-		return testData;
+	public static void putTestData(String className, String methodName, Object returnValue) {
+		testData.put(makeKey(className, methodName), returnValue);
 	}
 
-	public static ArgumentValueList getCallsMade() {
-		return callsMade;
+	public static void setTestDataAt(String className, String methodName, int index, Object returnValue) {
+		testData.setAt(makeKey(className, methodName), index, returnValue);
+	}
+
+	public static void putTestDataAtAllTimes(String className, String methodName, Object returnValue) {
+		testData.putValueAtAllTimes(makeKey(className, methodName), returnValue);
+	}
+
+	public static Object getReturnValue(String className, String methodName) {
+		return getReturnValue(makeKey(className, methodName));
+	}
+
+	public static Object getReturnValue(String classAndMethodName) {
+		return testData.get(classAndMethodName);
+	}
+
+	// public static ArgumentValueList getCallsMade() {
+	// return callsMade;
+	// }
+	//
+	public static int getCallCount(String className, String methodName) {
+		return callsMade.size(makeKey(className, methodName));
+	}
+
+	public static Object[] getArgument(String className, String methodName, int methodIndex) {
+		return (Object[]) callsMade.get(makeKey(className, methodName), methodIndex);
+	}
+
+	public static boolean isCalled(String className, String methodName) {
+		return callsMade.get(makeKey(className, methodName)) != null;
 	}
 
 	public static boolean isIgnoreMethodValue(String classAndMethodName) {
@@ -71,7 +98,8 @@ public class InternalMockObjectManager {
 		indicateCalled(classAndMethodName, arguments);
 
 		// getReturnValue
-		Object value = MockObjectManager.getReturnValue(classAndMethodName);
+		// Object value = MockObjectManager.getReturnValue(classAndMethodName);
+		Object value = testData.get(classAndMethodName);
 
 		if (value == null)
 			return null;
@@ -84,7 +112,6 @@ public class InternalMockObjectManager {
 
 		return value;
 	}
-
 
 	public static Object indicateCalledAndGetReturnValueForNewExpr(String className, String methodName, Object[] arguments, boolean isOwnSource) throws Throwable {
 		return indicateCalledAndGetReturnValueForNewExpr(makeKey(className, methodName), arguments, isOwnSource);
@@ -101,10 +128,12 @@ public class InternalMockObjectManager {
 		Object value = null;
 		if (isOwnSource) {
 			if (!isIgnoreMethodValue(classAndMethodName)) {
-				value = MockObjectManager.getReturnValue(classAndMethodName);
+				// value = MockObjectManager.getReturnValue(classAndMethodName);
+				value = testData.get(classAndMethodName);
 			}
 		} else {
-			value = MockObjectManager.getReturnValue(classAndMethodName);
+			// value = MockObjectManager.getReturnValue(classAndMethodName);
+			value = testData.get(classAndMethodName);
 		}
 
 		if (value == null)
@@ -142,7 +171,8 @@ public class InternalMockObjectManager {
 
 	public static void checkReturnTypeIsIgnoreReturnValue(Object value, String classAndMethodName) {
 
-		if (value instanceof IgnoreMethodValue) return;
+		if (value instanceof IgnoreMethodValue)
+			return;
 
 		throw new DJUnitRuntimeException(createMismatchReturnTypeMessage(value, classAndMethodName));
 	}
@@ -153,8 +183,10 @@ public class InternalMockObjectManager {
 
 	public static void checkReturnTypeIsIgnoreOrNullReturnValue(Object value, String classAndMethodName) {
 
-		if (value instanceof IgnoreMethodValue) return;
-		if (value instanceof NullReturnValue) return;
+		if (value instanceof IgnoreMethodValue)
+			return;
+		if (value instanceof NullReturnValue)
+			return;
 
 		throw new DJUnitRuntimeException(createMismatchReturnTypeMessage(value, classAndMethodName));
 	}
@@ -165,7 +197,8 @@ public class InternalMockObjectManager {
 
 	public static void checkReturnTypeIsNullReturnValue(Object value, String classAndMethodName) {
 
-		if (value instanceof NullReturnValue) return;
+		if (value instanceof NullReturnValue)
+			return;
 
 		throw new DJUnitRuntimeException(createMismatchReturnTypeMessage(value, classAndMethodName));
 	}
@@ -225,20 +258,20 @@ public class InternalMockObjectManager {
 	}
 
 	public static void printGetReturnValue(String classAndMethodNameName) {
-		if (System.getProperty("test.debug") == null) return;
+		// if (System.getProperty("test.debug") == null) return;
 		printConsole("[[[getReturnValue]]] : " + classAndMethodNameName);
 	}
 
 	private static void printIndicateCalled(String classAndMethodName, Object[] arguments) {
-		if (System.getProperty("test.debug") == null) return;
+		// if (System.getProperty("test.debug") == null) return;
 		printConsole("[[[indicateCalled]]] : " + classAndMethodName + ", " + arguments);
 	}
 
 	public static void printConsole(String message) {
-		String debug = System.getProperty("test.debug");
-		if (debug == null) {
-			return;
-		}
-		System.out.println(message);
+		// String debug = System.getProperty("test.debug");
+		// if (debug == null) {
+		// return;
+		// }
+		// System.out.println(message);
 	}
 }

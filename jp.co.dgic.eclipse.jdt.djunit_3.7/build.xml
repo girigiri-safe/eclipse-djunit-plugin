@@ -55,12 +55,27 @@
 		</zip>
 
 		<!-- create djunit-premain.jar -->
+		<delete file="${lib.dir}/${runtime.name}-premain.jar"/>
 		<jar basedir="bin" jarfile="${lib.dir}/${runtime.name}-premain.jar">
+			<!--
+			<include name="jp/co/dgic/testing/common/virtualmock/MockObjectManager.class" />
+			-->
 			<include name="jp/co/dgic/testing/common/instrument/*" />
 			<manifest>
 				<attribute name="Premain-Class" value="jp.co.dgic.testing.common.instrument.InstrumentUtils" />
 				<attribute name="Can-Redefine-Classes" value="true" />
 			</manifest>
+		</jar>
+
+		<!-- create djunit-bootstrup.jar -->
+		<delete file="${lib.dir}/${runtime.name}-bootstrup.jar"/>
+		<jar basedir="bin" jarfile="${lib.dir}/${runtime.name}-bootstrup.jar">
+			<include name="jp/co/dgic/testing/common/virtualmock/ArgumentValueList.class" />
+			<include name="jp/co/dgic/testing/common/virtualmock/IgnoreMethodValue.class" />
+			<include name="jp/co/dgic/testing/common/virtualmock/IReturnValueProvider.class" />
+			<include name="jp/co/dgic/testing/common/virtualmock/InternalMockObjectManager.class" />
+			<include name="jp/co/dgic/testing/common/virtualmock/ReturnValueList.class" />
+			<include name="jp/co/dgic/testing/common/virtualmock/annotation/VirtualMockInstrumented.class" />
 		</jar>
 
 		<!-- create djunit-src.jar -->
